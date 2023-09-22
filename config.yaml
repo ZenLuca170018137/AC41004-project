@@ -1,0 +1,33 @@
+# Configure the AWS cluster
+
+region: us-east-1
+
+cluster_name: my_eks
+
+# Subnets
+private_subnets:
+    startIP: 10.0.0.0/19
+    endIP: 10.0.32.0/19
+
+# Namespaces
+# This needs changed - namespaces are also not in our terraform currently
+namespaces:
+    name1: this
+    name2: somethingelse
+
+# Ingress
+# Currently unsure what ingress variables we're changing
+ingress:
+    from_port: 22
+    to_port: 22
+    protocol: tcp
+    cidr_blocks: # Subnet node group runs in
+        block1: 10.0.0.0/8
+
+# Capacity
+capacity:
+    desired_size: 1
+    min_size: 1
+    max_size: 2
+    instance_types: t3.micro
+    capacity_type: SPOT
