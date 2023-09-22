@@ -37,17 +37,17 @@ variable "ingress" {
 
 variable "capacity" {
   type = list(object({
-    desired_size = number
-    min_size = number
-    max_size = number
+    desired_size   = number
+    min_size       = number
+    max_size       = number
     instance_types = list(string)
-    capacity_type = string
+    capacity_type  = string
   }))
   default = [{
-    desired_size = 1
-    min_size = 1
-    max_size = 2
+    desired_size   = 1
+    min_size       = 1
+    max_size       = 2
     instance_types = ["t3.micro"]
-    capacity_type = "SPOT"
+    capacity_type  = "SPOT"
   }]
 }
