@@ -6,6 +6,9 @@ on:
   push:
     branches:
       - pipeline-test-2
+permissions:
+      id-token: write
+      contents: read
 env:
   TF_WORKSPACE: "AC41004-project"
   CONFIG_DIRECTORY: "./"
@@ -14,6 +17,16 @@ env:
   # REGION: eu-west-2
   # CLUSTER_NAME: industrial-cluster-5
 jobs:
+  configure AWS:
+    runs-on: ubuntu-latest 
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::123456789100:role/my-github-actions-role
+        # aws-region: us-east-2
   initialise:
     runs-on: ubuntu-latest 
     steps:
