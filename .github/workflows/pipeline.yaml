@@ -26,7 +26,7 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v4
       with:
         role-to-assume: arn:aws:iam::123456789100:role/my-github-actions-role
-        # aws-region: us-east-2
+        aws-region: us-east-1
   initialise:
     needs: configure_AWS
     runs-on: ubuntu-latest 
