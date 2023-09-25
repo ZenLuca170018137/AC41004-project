@@ -1,4 +1,4 @@
-module "eks" {
+/*module "eks" {
     source  = "terraform-aws-modules/eks/aws"
     version = "19.16.0"
 
@@ -8,8 +8,12 @@ module "eks" {
     cluster_endpoint_private_access = true
     cluster_endpoint_public_access = true
 
-    vpc_id = module.vpc.vpc_id
-    subnet_ids = module.vpc.private_subnets
+    vpc_id = aws_vpc.vpc.id
+    subnet_ids = [
+        aws_subnet.private-us-east-1a.id,
+        aws_subnet.private-us-east-1b.id
+    ]
+    
 
     enable_irsa = true
 
@@ -53,5 +57,21 @@ module "eks" {
 
     tags = {
         Envrironment = "staging"
+    }
+}*/
+
+resource "aws_eks_cluster" "my-eks" {
+
+    cluster_endpoint_private_access = true
+    cluster_endpoint_public_access = true
+
+      enable_irsa = true
+
+    eks_managed_node_group_defaults = {
+        disk_size = 50
+    }
+
+    tags = {
+      name=my-eks
     }
 }
