@@ -25,8 +25,14 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: arn:aws:iam::123456789100:role/my-github-actions-role
+        aws-access-key-id: ASIA5KSRLFHIH257HUME
+        aws-secret-access-key: fV8wSk8uwvTiCzOpcBJTMU/WOkzwhhg2zhr20fob
         aws-region: us-east-1
+        aws-session-token: IQoJb3JpZ2luX2VjEGgaCXVzLWVhc3QtMSJHMEUCIEYqbmAvpK3TNqdCQ0FFPjqRsTyTn1a0n/9InsC0sjzDAiEAhvJHdupIbjF1HiYMV4K/nQ7scgOt9ATpNWWHgMGA3Vcq5gIIYBAAGgw5MTYwNzIzNzY3ODQiDLbPXiCHhi4nR6MPEirDAqObA89nQEYJI20t6HCkLJVE0+gRj0zTRc43rsaZ8cc8UWAmp5MORm7s42eCh1FVOiC4Ze4+Ja2TdGfQrhmX1ITUZDrk+fLFuGwMYY0gYHy1m94ff0+V/Uv93k2EfVR83gJm0b/VP/8OOimDKPbAr9pBmaa6iJSosOBXyWjeuYabKLCIVtOdC745CWY+qX/dwuDNAHHSggb48aGUSifAwWtwka1nNfme0M4PDhT2XJ29KKPxHwQ/682awhPlJGfTXsKAuF37r/BAit2LpN262x9Oa7rhfTnjFBEALKy6IBolx62QT4ZS3fLr6Nah+OFJuIxv35SWaZQvn9tRsVMkMKwf8mOpQt7C7MhoLUeN64PJSDXW9EZ8Gl9T5ezxYk43TjAZcCqCrxcwgmmvPfnLkhvlXmhFEjuap5D7gUR1vYrFD6nuMITGxqgGOqcBtds5HgoSZEm3W9UMOTILwvlgEq2Kq4yh2t9/VeRIPGlFxwwZlb58AP0Iv09OUTLEWKbxlwf27jtSPB78Ji7oSJhcxjhWlFxkNLpFrUspKTLb7gB8Ap4jwbYvdNhlry4pav0rUJqi6nqrGKdmI7XZkThd9K7bzY7/wxK5ldn4djcISgpSOKl6hSFS6Azak0RfQvn6i+htaYb5KOV58OuezUk6aUBeBIQ=
+        role-to-assume: arn:aws:iam::123456789100:role/my-other-github-actions-role
+        # role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
+        # role-duration-seconds: 1200
+        # role-session-name: MySessionName
   initialise:
     needs: configure_AWS
     runs-on: ubuntu-latest 
