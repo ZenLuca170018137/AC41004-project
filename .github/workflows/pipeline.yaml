@@ -7,10 +7,10 @@ on:
     branches:
       - pipeline-test-2
     env:
-    TF_WORKSPACE: "AC41004-project"
-    CONFIG_DIRECTORY: "./"
-    AWS_ACCESS_KEY_ID:  ASIA5KSRLFHILWUGKZWC
-    AWS_SECRET_ACCESS_KEY:  vwVGbyJSJ3Tl30sSHC5Pf8UuL8XhohTd94ZGCDrL
+      TF_WORKSPACE: "AC41004-project"
+      CONFIG_DIRECTORY: "./"
+      AWS_ACCESS_KEY_ID:  ASIA5KSRLFHILWUGKZWC
+      AWS_SECRET_ACCESS_KEY:  vwVGbyJSJ3Tl30sSHC5Pf8UuL8XhohTd94ZGCDrL
   # REGION: eu-west-2
   # CLUSTER_NAME: industrial-cluster-5
 jobs:
