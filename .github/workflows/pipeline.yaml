@@ -17,7 +17,7 @@ env:
   # REGION: eu-west-2
   # CLUSTER_NAME: industrial-cluster-5
 jobs:
-  configure AWS:
+  configure_AWS:
     runs-on: ubuntu-latest 
     steps:
     - name: Checkout code
@@ -28,6 +28,7 @@ jobs:
         role-to-assume: arn:aws:iam::123456789100:role/my-github-actions-role
         # aws-region: us-east-2
   initialise:
+    needs: configure_AWS
     runs-on: ubuntu-latest 
     steps:
     - name: Checkout code
