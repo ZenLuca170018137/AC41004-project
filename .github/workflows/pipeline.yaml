@@ -1,0 +1,85 @@
+name: Terraform Workflow
+
+
+on:
+  push:
+    branches:
+      - main
+env:
+  TF_WORKSPACE: "AC41004-project"
+  CONFIG_DIRECTORY: "./"
+  AWS_ACCESS_KEY_ID:  ASIA5KSRLFHID42SSHCT
+  AWS_SECRET_ACCESS_KEY:  dm1uWGWFCr6hG3C0hZ6iCU2vpPmh/jt/eo1Umutt
+  # REGION: us-east-1
+  # CLUSTER_NAME: industrial-cluster-5
+jobs:
+  whoopooloo:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+      
+    - name: Initialize Terraform
+      run: terraform init
+    - name: Validate
+      run: terraform validate
+    - name: plan
+      run: terraform plan -
+    - name: terraform apply
+      run: terraform apply --auto-approve
+    # - name: Create New File
+    #     run: |
+    #       echo "This is a new file." > newfile2.txt
+    #       git config --global user.name "ZenLuca170018137"
+    #       git config --global user.email "lzen@dundee.ac.uk"
+    #       git add newfile2.txt
+    #       git commit -m "Add newfile.txt"
+    #       git push origin main
+    #   - name: Append to the file
+    #     run: |
+    #       echo "Append test." >> newfile2.txt
+    #       git config --global user.name "ZenLuca170018137"
+    #       git config --global user.email "lzen@dundee.ac.uk"
+    #       git add newfile2.txt
+    #       git commit -m "Append newfile.txt"
+    #       git push origin main
+    #   - name: Search File
+    #     run: |
+    #       search_term="Append"
+    #       file_to_search="newfile2.txt"
+
+    #       if grep -q "$search_term" "$file_to_search"; then
+    #         echo "Term existing." >> newfile2.txt
+    #         git config --global user.name "ZenLuca170018137"
+    #         git config --global user.email "lzen@dundee.ac.uk"
+    #         git add newfile2.txt
+    #         git commit -m "search positive.txt"
+    #         git push origin main
+    #       else
+    #         echo "Term not existing." >> newfile2.txt
+    #         git config --global user.name "ZenLuca170018137"
+    #         git config --global user.email "lzen@dundee.ac.uk"
+    #         git add newfile2.txt
+    #         git commit -m "search negative.txt"
+    #         git push origin main
+    #       fi
+    #   - name: Extract Word
+    #     id: extract-word
+    #     run: | 
+    #         # Specify the file name to read from
+    #         file_to_read="newfile2.txt"
+    #         # Specify the line number containing the word (adjust as needed)
+    #         line_number=2
+    #         # Use awk to extract the word from the specified line
+    #         extracted_word=$(awk "NR==$line_number{print \$2}" "$file_to_read")
+    #         echo "::set-output name=extracted_word::$extracted_word"
+
+    #   - name: Use Extracted Word
+    #     run: |
+    #         extracted_word="${{ steps.extract-word.outputs.extracted_word }}"
+    #         echo "Extracted Word: $extracted_word"
+
+
