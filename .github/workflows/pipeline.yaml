@@ -1,3 +1,4 @@
+
 name: Terraform Workflow
 
 
@@ -5,25 +6,29 @@ on:
   push:
     branches:
       - pipeline-test-2
+    env:
+    TF_WORKSPACE: "AC41004-project"
+    CONFIG_DIRECTORY: "./"
+    AWS_ACCESS_KEY_ID:  ASIA5KSRLFHIGUWYLH65
+    AWS_SECRET_ACCESS_KEY:  tzMQAJq9qt5M2OvIbSPdSrx+UuSv2Tbrs8dleTVi
+  # REGION: eu-west-2
+  # CLUSTER_NAME: industrial-cluster-5
 jobs:
   initialise:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2  
-
+      uses: actions/checkout@v2
     - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v1
-      
+      uses: hashicorp/setup-terraform@v1 
     - name: Initialize Terraform
       run: terraform init
-  validate:
-    needs: initialise
-    runs-on: ubuntu-latest
-    steps:
-      - name: Validate
-        run: terraform validate
+    - name: Validate
+      run: terraform validate
+    - name: plan
+      run: terraform plan -destroy
+    - name: apply
+      run: terraform apply --auto-approve
   # apply_changes:
   #   needs: validate
   #   runs-on: ubuntu-latest
@@ -81,93 +86,3 @@ jobs:
   #       run: |
   #           extracted_word="${{ steps.extract-word.outputs.extracted_word }}"
   #           echo "Extracted Word: $extracted_word"
-
-
-# name: Terraform Workflow
-
-
-# on:
-#   push:
-#     branches:
-#       - pipeline-test-2
-  
-#   # REGION: eu-west-2
-#   # CLUSTER_NAME: industrial-cluster-5
-# jobs:
-#   env:
-#     TF_WORKSPACE: "AC41004-project"
-#     CONFIG_DIRECTORY: "./"
-#     AWS_ACCESS_KEY_ID:  ASIA5KSRLFHIGUWYLH65
-#     AWS_SECRET_ACCESS_KEY:  tzMQAJq9qt5M2OvIbSPdSrx+UuSv2Tbrs8dleTVi
-#   initialise:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v2
-#     - name: Set up Terraform
-#       uses: hashicorp/setup-terraform@v1 
-#     - name: Initialize Terraform
-#       run: terraform init
-#     - name: Validate
-#       run: terraform validate
-#     - name: plan
-#       run: terraform plan -destroy
-#     - name: apply
-#       run: terraform apply --auto-approve
-#   # apply_changes:
-#   #   needs: validate
-#   #   runs-on: ubuntu-latest
-#   #   steps: 
-#   #     - name: Checkout code
-#   #       uses: actions/checkout@v2
-#   #     - name: Create New File
-#   #       run: |
-#   #         echo "This is a new file." > newfile2.txt
-#   #         git config --global user.name "ZenLuca170018137"
-#   #         git config --global user.email "lzen@dundee.ac.uk"
-#   #         git add newfile2.txt
-#   #         git commit -m "Add newfile.txt"
-#   #         git push origin main
-#   #     - name: Append to the file
-#   #       run: |
-#   #         echo "Append test." >> newfile2.txt
-#   #         git config --global user.name "ZenLuca170018137"
-#   #         git config --global user.email "lzen@dundee.ac.uk"
-#   #         git add newfile2.txt
-#   #         git commit -m "Append newfile.txt"
-#   #         git push origin main
-#   #     - name: Search File
-#   #       run: |
-#   #         search_term="Append"
-#   #         file_to_search="newfile2.txt"
-
-#   #         if grep -q "$search_term" "$file_to_search"; then
-#   #           echo "Term existing." >> newfile2.txt
-#   #           git config --global user.name "ZenLuca170018137"
-#   #           git config --global user.email "lzen@dundee.ac.uk"
-#   #           git add newfile2.txt
-#   #           git commit -m "search positive.txt"
-#   #           git push origin main
-#   #         else
-#   #           echo "Term not existing." >> newfile2.txt
-#   #           git config --global user.name "ZenLuca170018137"
-#   #           git config --global user.email "lzen@dundee.ac.uk"
-#   #           git add newfile2.txt
-#   #           git commit -m "search negative.txt"
-#   #           git push origin main
-#   #         fi
-#   #     - name: Extract Word
-#   #       id: extract-word
-#   #       run: | 
-#   #           # Specify the file name to read from
-#   #           file_to_read="newfile2.txt"
-#   #           # Specify the line number containing the word (adjust as needed)
-#   #           line_number=2
-#   #           # Use awk to extract the word from the specified line
-#   #           extracted_word=$(awk "NR==$line_number{print \$2}" "$file_to_read")
-#   #           echo "::set-output name=extracted_word::$extracted_word"
-
-#   #     - name: Use Extracted Word
-#   #       run: |
-#   #           extracted_word="${{ steps.extract-word.outputs.extracted_word }}"
-#   #           echo "Extracted Word: $extracted_word"
