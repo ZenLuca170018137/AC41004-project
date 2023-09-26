@@ -1,12 +1,28 @@
-//nodes in the cluster
-//
-resource "aws_instance" "test-node" {
-    
-  ami           = ""//dont know where to obtain the machine image
-  instance_type = "t2.micro"            # Specify the instance type
-  subnet_id    = aws_subnet.private-us-east-1a
-
-  tags = {
-    Name = "test-node"
+//obtained from terraform docs doesnt work , probably issue with availability
+/*
+data "aws_ami" "this" {
+  most_recent = true
+  owners      = ["amazon"]
+  filter {
+    name   = "architecture"
+    values = ["arm64"]
+  }
+  filter {
+    name   = "name"
+    values = ["al2023-ami-2023*"]
   }
 }
+
+resource "aws_instance" "this" {
+  ami = data.aws_ami.this.id
+  instance_market_options {
+    spot_options {
+      max_price = 0.0031
+    }
+  }
+  instance_type = "t3.micro"
+  tags = {
+    Name = "test-spot"
+  }
+}
+*/
