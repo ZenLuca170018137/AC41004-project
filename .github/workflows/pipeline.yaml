@@ -5,15 +5,15 @@ name: Terraform Workflow
 on:
   push:
     branches: 
-      - pipeline-test
+      - pipeline-test-2
 permissions:
       id-token: write
       contents: read
 env:
   TF_WORKSPACE: "AC41004-project"
   CONFIG_DIRECTORY: "./"
-  AWS_ACCESS_KEY_ID: ASIA5KSRLFHIJDGQLXGL
-  AWS_SECRET_ACCESS_KEY: mpmBH48tBt/xTcMO9zX523FjhlqqF6X0bCmLxx1P
+  AWS_ACCESS_KEY_ID: AKIA5KSRLFHIMZ5T3VH7
+  AWS_SECRET_ACCESS_KEY:  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
   REGION: us-east-1
   # CLUSTER_NAME: industrial-cluster-5
 jobs:
