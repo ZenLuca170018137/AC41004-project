@@ -1,4 +1,4 @@
-//
+/*
 //create security group
 resource "aws_security_group" "ingress_controller" {
     description = "controls all "
@@ -21,18 +21,14 @@ tags={
     Name="ingress_controller"
 }
 }
-module "aws_ingress_controller" {
-
-
-source="https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.1.4/docs/examples/rbac-role.yaml"
-    cluster_name="my-eks"
-    cluster_oidc_issuer_url=module.eks.cluster_oidc_issuer_url
-    cluster_oidc_issuer=module.eks.cluster_oidc_issuer
-    cluster_oidc_provider_arn=module.eks.cluster_oidc_provider_arn
-    cluster_oidc_provider_url=module.eks.cluster_oidc_provider_url
-
-    tags={
-        Name="aws_ingress_controller"
-    }
-  
+module "alb-ingress-controller" {
+  source  = "campaand/alb-ingress-controller/aws"
+  version = "2.0.0"
+  # insert the 1 required variable here
+     cluster_name = var.cluster_name
+ 
 }
+   output "cluster_name_debug" {
+  value = var.cluster_name
+}
+*/
