@@ -48,7 +48,7 @@ jobs:
     - name: plan
       run: terraform plan -destroy
     - name: apply
-      run: aws sts get-caller-identity
+      run: terraform apply --auto-approve
   # apply_changes:
   #   needs: validate
   #   runs-on: ubuntu-latest
