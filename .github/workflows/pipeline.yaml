@@ -4,7 +4,6 @@ name: Terraform Workflow
  
 on:
   workflow_dispatch:
-      - pipeline-test-2
 permissions:
       id-token: write
       contents: read
