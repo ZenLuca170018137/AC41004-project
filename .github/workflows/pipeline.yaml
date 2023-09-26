@@ -4,6 +4,10 @@ name: Terraform Workflow
  
 on:
   workflow_dispatch:
+      inputs:
+        branch:
+          description: 'pipeline-test-2'
+          required: true
 permissions:
       id-token: write
       contents: read
