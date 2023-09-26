@@ -14,7 +14,7 @@ env:
   CONFIG_DIRECTORY: "./"
   AWS_ACCESS_KEY_ID: ASIA5KSRLFHIEJYVLM4J
   AWS_SECRET_ACCESS_KEY: dKitZ7ZsRRNSuUgKdr/WGg4L0Sto0JYecfHQh+zG
-  # REGION: eu-west-2
+  REGION: us-east-1
   # CLUSTER_NAME: industrial-cluster-5
 jobs:
   # configure_AWS:
