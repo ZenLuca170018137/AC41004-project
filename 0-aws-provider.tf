@@ -3,7 +3,7 @@ provider "aws" {
   access_key = "ASIA5KSRLFHIJDGQLXGL"
   secret_key = "mpmBH48tBt/xTcMO9zX523FjhlqqF6X0bCmLxx1P"
 }
-
+ 
 terraform {
   required_providers {
     kubectl = {
