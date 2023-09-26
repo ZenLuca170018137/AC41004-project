@@ -50,7 +50,7 @@ jobs:
     - name: apply
       run: terraform apply --auto-approve
     - name: destroy
-      run: terraform destroy
+      run: terraform destroy --auto-approve
   # apply_changes:
   #   needs: validate
   #   runs-on: ubuntu-latest
