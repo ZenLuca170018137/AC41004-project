@@ -1,5 +1,5 @@
 
-name: Terraform Workflow
+name: Terraform Workflow - init
 
  
 on:
@@ -45,12 +45,14 @@ jobs:
       run: terraform init 
     - name: Validate
       run: terraform validate
-    - name: plan
-      run: terraform plan -destroy
-    - name: apply
-      run: terraform apply --auto-approve
-    - name: destroy
-      run: terraform destroy --auto-approve
+    - name: show_path
+      run: cd
+    # - name: plan
+    #   run: terraform plan -destroy
+    # - name: apply
+    #   run: terraform apply --auto-approve
+    # - name: destroy
+    #   run: terraform destroy --auto-approve
   # apply_changes:
   #   needs: validate
   #   runs-on: ubuntu-latest
