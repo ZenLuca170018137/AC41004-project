@@ -34,7 +34,7 @@ jobs:
   #       # role-session-name: MySessionName
   initialise:
     # needs: configure_AWS
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -44,6 +44,8 @@ jobs:
     #   run: terraform init 
     # - name: Validate
     #   run: terraform validate
+    - name: set_region
+      run:  aws configure set default.region us-east-1
     - name: get_tfstate
       run:  aws s3 cp s3://awsbucketteam8/my-terraform-project /home/runner/work/AC41004-project/AC41004-project
     - name: plan
