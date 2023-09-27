@@ -3,7 +3,9 @@ name: Terraform Workflow - apply
 
  
 on:
-    workflow_dispatch:
+    push:
+      branches:
+        - pipeline-test-2
 permissions:
       id-token: write
       contents: read
@@ -43,11 +45,11 @@ jobs:
     #   run: terraform init 
     # - name: Validate
     #   run: terraform validate
-    - name: get_tfstate
-      run:  aws s3 cp s3://awsbucketteam8/my-terraform-project /Users/zien2/OneDrive/Desktop/AC41004-project
-    - name: plan
-      run: terraform plan -destroy
-    - name: apply
-      run: terraform apply --auto-approve
-    - name: destroy
-      run: terraform destroy --auto-approve
+    # - name: get_tfstate
+    #   run:  aws s3 cp s3://awsbucketteam8/my-terraform-project /Users/zien2/OneDrive/Desktop/AC41004-project
+    # - name: plan
+    #   run: terraform plan -destroy
+    # - name: apply
+    #   run: terraform apply --auto-approve
+    # - name: destroy
+    #   run: terraform destroy --auto-approve
