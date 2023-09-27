@@ -2,10 +2,9 @@
 name: Terraform Workflow - apply
 
 on:
-    workflow_run:
-        workflows: ["Terraform Workflow - init"]  # Trigger when "Terraform Init" workflow completes successfully
-        types:
-            - completed
+    push:
+      branches:
+        - pipeline-test-2
 permissions:
       id-token: write
       contents: read
