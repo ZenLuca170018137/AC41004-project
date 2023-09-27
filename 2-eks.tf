@@ -4,7 +4,7 @@ resource "aws_eks_cluster" "my-eks" {
 name="my-eks"
 
     
-    role_arn =aws_iam_role.example.arn
+    role_arn =aws_iam_role.cluster-role.arn
      vpc_config {
         subnet_ids =[
             aws_subnet.private-us-east-1a.id,
@@ -13,7 +13,7 @@ name="my-eks"
         
       }
       depends_on = [ aws_iam_role_policy_attachment.cluster-AmazonEKSClusterPolicy,
-      aws_iam_role_policy_attachment.cluster-AmazonEKSVPCResourceControlle ]
+      aws_iam_role_policy_attachment.cluster-AmazonEKSVPCResourceController ]
    
     tags = {
       name="my-eks"

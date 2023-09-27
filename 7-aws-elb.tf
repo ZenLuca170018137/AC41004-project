@@ -1,41 +1,45 @@
-resource "aws_elb" "aws_load_balancer" {
-    name="terraform-elb"
-    subnets=[
+resource "aws_alb" "Load-balancer" {
+
+    name = "my-alb"
+    internal = true
+    security_groups = [
+        aws_security_group.ingress-controller.id
+
+    ]
+    subnets = [
         aws_subnet.private-us-east-1a.id,
         aws_subnet.private-us-east-1b.id
     ]
-   
-    access_logs {
-        bucket="terraform-elb-logs"
-        bucket_prefix="terraform-elb"
-        interval=5
-    }
-    health_check {
-        healthy_threshold=2
-        unhealthy_threshold=2
-        timeout=3
-        target="HTTP:80/"
-        interval=30
-    }
-    listener {
-        instance_port=80
-        instance_protocol="HTTP"
-        lb_port=80
-        lb_protocol="HTTP"
-    }
-//instances
-     instances                   = [
-        aws_instance.test-node.id
-     ]
-   
-    idle_timeout = 400
-    cross_zone_load_balancing=true
-    connection_draining=true
-    connection_draining_timeout=400  
 
-    tags={
-        Name="terraform-elb"
-    }
+  
+    
 
+    tags = {
+        Name = "my-alb"
+    }
+  
 }
+//target groups
+resource "aws_alb_target_group" "target-group" {
+    name = "my-target-group"
+   
 
+    port = 80
+    protocol = "HTTP"
+    vpc_id = aws_vpc.vpc.id
+    depends_on = [aws_alb.Load-balancer]
+    tags = {
+        Name = "my-target-group"
+    }
+}
+//listener
+resource "aws_alb_listener" "listener" {
+    load_balancer_arn = aws_alb.Load-balancer.arn
+    port = 80
+    protocol = "HTTP"
+    default_action {
+        target_group_arn = aws_alb_target_group.target-group.arn
+        type = "forward"
+    }
+    depends_on = [aws_alb_target_group.target-group]
+}

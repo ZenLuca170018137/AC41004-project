@@ -10,9 +10,9 @@ resource "aws_instance" "test-node" {
     }
 
     dynamic "instance_market_options" {
-        for_each = var.capacity_type == "SPOT" ? [1] : []
+        for_each = var.capacity[0].capacity_type== "SPOT" ? [1] : []
         content {
-            market_type = "SPOT"
+            market_type = "spot"
             spot_options {
                 max_price = "0.05"
             }
@@ -20,7 +20,7 @@ resource "aws_instance" "test-node" {
     }
 
     dynamic "instance_market_options" {
-        for_each = var.capacity_type == "fleet" ? [1] : []
+        for_each = var.capacity[0].capacity_type== "fleet" ? [1] : []
         content {
             target_capacity = 2  # Spot instances
             spot_price      = "0.05"  
@@ -30,9 +30,14 @@ resource "aws_instance" "test-node" {
     }
 
     dynamic "instance_market_options" {
-        for_each = var.capacity_type == "dedicated-host" ? [1] : []
+        for_each = var.capacity[0].capacity_type == "dedicated-host" ? [1] : []
         content {
         tenancy = "host"
         }
     }
+  
 }
+output "capacity_type_output" {
+  value = var.capacity[0].capacity_type
+}
+
