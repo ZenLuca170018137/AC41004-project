@@ -46,7 +46,7 @@ jobs:
     - name: Validate
       run: terraform validate
     - name: show_path
-      run: cd
+      run: pwd
     # - name: plan
     #   run: terraform plan -destroy
     # - name: apply
