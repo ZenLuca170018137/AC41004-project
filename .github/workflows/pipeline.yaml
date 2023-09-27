@@ -55,13 +55,13 @@ jobs:
     #   run: pwd
     - name: plan
       run: terraform plan -destroy
-      if: github.event_name=='workflow_dispatch'
+      if: github.event_name=='push'
     - name: apply
-      run: terraform apply --auto-approve -destroy
-      if: github.event_name=='workflow_dispatch'
+      run: terraform apply --auto-approve
+      if: github.event_name=='push'
     - name: destroy
       run: terraform destroy --auto-approve
-      if: github.event_name=='workflow_dispatch'
+      if: github.event_name=='push'
   # # apply_changes:
   #   needs: validate
   #   runs-on: ubuntu-latest
