@@ -8,7 +8,7 @@ on:
 permissions:
       id-token: write
       contents: read
-env:
+env: 
   TF_WORKSPACE: "AC41004-project"
   CONFIG_DIRECTORY: "./"
   AWS_ACCESS_KEY_ID: AKIA5KSRLFHIMZ5T3VH7
