@@ -1,9 +1,11 @@
 
 name: Terraform Workflow - apply
 
- 
 on:
-    workflow_dispatch:
+    workflow_run:
+      workflows: ["Terraform Workflow - init"]  # Trigger when "Terraform Init" workflow completes successfully
+      types:
+        - completed
 permissions:
       id-token: write
       contents: read
@@ -44,7 +46,7 @@ jobs:
     # - name: Validate
     #   run: terraform validate
     - name: get_tfstate
-      run:  aws s3 cp s3://awsbucketteam8/my-terraform-project /Users/zien2/OneDrive/Desktop/AC41004-project
+      run:  aws s3 cp s3://awsbucketteam8/my-terraform-project /home/runner/work/AC41004-project/AC41004-project
     - name: plan
       run: terraform plan -destroy
     - name: apply
