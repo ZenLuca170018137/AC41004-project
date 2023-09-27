@@ -3,10 +3,7 @@ name: Terraform Workflow - init
 
  
 on:
-  pull_request:
-  push:
-    branches:
-      - pipeline-test-2
+  workflow_dispatch:
 permissions:
       id-token: write
       contents: read
