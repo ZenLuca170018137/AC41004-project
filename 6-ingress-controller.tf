@@ -35,3 +35,5 @@ resource "aws_security_group" "ingress-controller" {
     ipv6_cidr_blocks = ["::/0"]
   }
 }
+
+
