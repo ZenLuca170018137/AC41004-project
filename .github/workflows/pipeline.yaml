@@ -3,9 +3,10 @@ name: Terraform Workflow - init
 
  
 on:
+  pull_request:
   push:
     branches:
-      - pipeline-test-2fsda
+      - pipeline-test-2
 permissions:
       id-token: write
       contents: read
@@ -47,12 +48,15 @@ jobs:
       run: terraform validate
     - name: show_path
       run: pwd
-    # - name: plan
-    #   run: terraform plan -destroy
-    # - name: apply
-    #   run: terraform apply --auto-approve
-    # - name: destroy
-    #   run: terraform destroy --auto-approve
+    - name: plan
+      run: terraform plan -destroy
+      if: github.event_name=='pull_request'
+    - name: apply
+      run: terraform apply --auto-approve
+      if: github.event_name=='pull_request'
+    - name: destroy
+      run: terraform destroy --auto-approve
+      if: github.event_name=='pull_request'
   # apply_changes:
   #   needs: validate
   #   runs-on: ubuntu-latest
