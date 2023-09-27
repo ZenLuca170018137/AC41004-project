@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
       inputs:
         branch:
-          description: 'pipeline-test-2'
+          description: 'pipeline-test-42'
           required: true
 permissions:
       id-token: write
