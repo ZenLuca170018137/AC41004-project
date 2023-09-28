@@ -1,5 +1,5 @@
 
-name: Terraform Workflow - init
+name: Terraform Workflow - Init and Apply
 
  
 on:
@@ -14,8 +14,8 @@ permissions:
 env:
   TF_WORKSPACE: "AC41004-project"
   CONFIG_DIRECTORY: "./"
-  AWS_ACCESS_KEY_ID: AKIA5KSRLFHIMZ5T3VH7
-  AWS_SECRET_ACCESS_KEY:  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
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   REGION: us-east-1
   # CLUSTER_NAME: industrial-cluster-5
 jobs:
