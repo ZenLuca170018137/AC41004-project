@@ -49,7 +49,7 @@ jobs:
       run: terraform init 
       if: github.event_name=='push'
     - name: Validate
-      run: terraform validate
+      run: terraform validate 
       if: github.event_name=='push'
     # - name: show_path
     #   run: pwd
