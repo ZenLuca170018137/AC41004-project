@@ -55,9 +55,9 @@ jobs:
     - name: apply
       run: terraform apply --auto-approve
       if: github.event_name=='workflow_dispatch'
-    - name: destroy
-      run: terraform destroy --auto-approve
-      if: github.event_name=='workflow_dispatch'
+    # - name: destroy
+    #   run: terraform destroy --auto-approve
+    #   if: github.event_name=='workflow_dispatch'
   # # apply_changes:
   #   needs: validate
   #   runs-on: ubuntu-latest
