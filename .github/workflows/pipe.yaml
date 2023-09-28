@@ -9,8 +9,6 @@ permissions:
 env: 
   TF_WORKSPACE: "AC41004-project"
   CONFIG_DIRECTORY: "./"
-  AWS_ACCESS_KEY_ID: ${{ vars.AWS_KEY }}
-  AWS_SECRET_ACCESS_KEY:  ${{ vars.AWS_ACCESS_KEY }}
   REGION: us-east-1
   # CLUSTER_NAME: industrial-cluster-5
 jobs:
