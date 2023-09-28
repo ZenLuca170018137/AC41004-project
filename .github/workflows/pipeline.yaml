@@ -41,27 +41,23 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      if: github.event_name=='push'
+
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1 
-      if: github.event_name=='push'
     - name: Initialize Terraform
       run: terraform init 
-      if: github.event_name=='push'
     - name: Validate
       run: terraform validate 
-      if: github.event_name=='push'
     # - name: show_path
     #   run: pwd
     - name: plan
       run: terraform plan -destroy
-      if: github.event_name=='push'
     - name: apply
       run: terraform apply --auto-approve
-      if: github.event_name=='push'
+      if: github.event_name=='workflow_dispatch'
     - name: destroy
       run: terraform destroy --auto-approve
-      if: github.event_name=='push'
+      if: github.event_name=='workflow_dispatch'
   # # apply_changes:
   #   needs: validate
   #   runs-on: ubuntu-latest
