@@ -18,13 +18,24 @@ variable "subnets" {
   }))
   default = [
     {
-      cidr_block        = "10.0.1.0/24"
+      cidr_block        = "10.0.0.0/19"
       availability_zone = "us-east-1a"
     },
     {
-      cidr_block        = "10.0.2.0/24"
+      cidr_block        = "10.0.32.0/19"
+      availability_zone = "us-east-1b"
+    },
+    {
+       cidr_block        = "10.0.64.0/19"
+      availability_zone = "us-east-1a"
+
+    },
+    {
+      cidr_block        = "10.0.96.0/19"
       availability_zone = "us-east-1b"
     }
+
+    
   
   ]
 }

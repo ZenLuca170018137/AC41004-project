@@ -2,7 +2,11 @@
 resource "aws_alb" "load_balancer" {
   name                       = "my-alb"  # Name of the ALB
   internal                   = true  # Specifies that the ALB is internal (not exposed to the internet)
-  subnets                    = [for subnet in values(aws_subnet.private_subnet) : subnet.id]  # List of subnets where the ALB will be deployed
+  subnets                    = [
+    aws_subnet.public-1.id,
+    aws_subnet.public-2.id,
+   
+  ]  #
   enable_deletion_protection = false  # Disables deletion protection for the ALB
   security_groups            = [  # Security groups to be associated with the ALB
     aws_security_group.eks_control_plane_sg.id,
