@@ -7,6 +7,13 @@ resource "aws_eip" "my_eip" {
     Name = "my-eip-${each.key}"  # Naming convention for the EIPs
   }
 }
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name = "my-internet-gateway"
+  }
+}
 
 # Create a NAT gateway in each private subnet to allow outbound internet access
 resource "aws_nat_gateway" "my_nat_gateway" {
@@ -42,11 +49,6 @@ resource "aws_route_table_association" "my_rta" {
 
 output "route-table-id" {
   value = aws_route_table.private_route_table
-
-  
-}
-output "ngw" {
-  value = aws_nat_gateway.my_nat_gateway.id
 
   
 }

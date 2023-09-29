@@ -8,17 +8,14 @@ module "eks" {
 
   # Defaults for EKS Managed Node Groups
   eks_managed_node_group_defaults = {
-    ami_type       = "AL2_x86_64" 
-    instance_types = ["m5.large"]  
+    ami_type       = "AL2_x86_64"
+  
+
+    instance_types = ["t2.micro"]
 
     # Disable attaching the primary security group of the cluster to nodes
     attach_cluster_primary_security_group = false  
 
-    # Remote access configuration for the nodes
-    remote_access = {
-      ssh_key_name               = "my-key" 
-      source_security_group_ids  = [aws_security_group.worker_node_sg.id]  
-    }
   }
 
   # Configuration for EKS Managed Node Groups
@@ -27,7 +24,9 @@ module "eks" {
       desired_capacity = 2  # Desired number of worker nodes in the node group
       max_capacity     = 2  # Maximum number of worker nodes in the node group
       min_capacity     = 1  # Minimum number of worker nodes in the node group
-      instance_type    = "t2.micro"  # Instance type for the nodes in this node group
+    
+        instance_types = ["t2.micro"]  # List of instance types to use for the worker nodes
+
       capacity_type    = "ON_DEMAND"  # Specify the capacity type as on-demand
 
       tags = {
