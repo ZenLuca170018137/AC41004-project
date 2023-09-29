@@ -1,21 +1,48 @@
+module "eks" {
+  source          = "terraform-aws-modules/eks/aws"  # Specify the source for the EKS module
+  cluster_name    = var.cluster_name                  # Define the name of the EKS cluster
+  cluster_version = "1.28"                            # Define the version of EKS to use
+  subnet_ids      = [for subnet in aws_subnet.private_subnet : subnet.id]  # List of subnets where the EKS cluster and nodes will be deployed
 
+  vpc_id = aws_vpc.vpc.id  # Specify the VPC ID where the EKS cluster will be deployed
 
-resource "aws_eks_cluster" "my-eks" {
-name="my-eks"
+  # Defaults for EKS Managed Node Groups
+  eks_managed_node_group_defaults = {
+    ami_type       = "AL2_x86_64" 
+    instance_types = ["m5.large"]  
 
-    
-    role_arn =aws_iam_role.cluster-role.arn
-     vpc_config {
-        subnet_ids =[
-            aws_subnet.private-us-east-1a.id,
-            aws_subnet.private-us-east-1b.id
-        ]
-        
-      }
-      depends_on = [ aws_iam_role_policy_attachment.cluster-AmazonEKSClusterPolicy,
-      aws_iam_role_policy_attachment.cluster-AmazonEKSVPCResourceController ]
-   
-    tags = {
-      name="my-eks"
+    # Disable attaching the primary security group of the cluster to nodes
+    attach_cluster_primary_security_group = false  
+
+    # Remote access configuration for the nodes
+    remote_access = {
+      ssh_key_name               = "my-key" 
+      source_security_group_ids  = [aws_security_group.worker_node_sg.id]  
     }
+  }
+
+  # Configuration for EKS Managed Node Groups
+  eks_managed_node_groups = {
+    ng1 = {
+      desired_capacity = 2  # Desired number of worker nodes in the node group
+      max_capacity     = 2  # Maximum number of worker nodes in the node group
+      min_capacity     = 1  # Minimum number of worker nodes in the node group
+      instance_type    = "t2.micro"  # Instance type for the nodes in this node group
+      capacity_type    = "ON_DEMAND"  # Specify the capacity type as on-demand
+
+      tags = {
+        "Name" = "ng1"  # Name tag for the resources in this node group
+      }
+    }
+  }
+}
+
+# Output the endpoint of the EKS cluster
+output "cluster_endpoint" {
+  value = module.eks.cluster_endpoint
+}
+
+# Output the security group ID of the EKS cluster
+output "cluster_security_group_id" {
+  value = module.eks.cluster_security_group_id
 }

@@ -10,29 +10,59 @@ variable "cluster_name" {
   default = "my_eks"
 }
 
-variable "subnet_ids" {
-  type    = list(string)
-  default = ["10.0.0.0/19", "10.0.32.0/19"]
+variable "subnets" {
+  description = "List of subnets"
+  type = list(object({
+    cidr_block        = string
+    availability_zone = string
+  }))
+  default = [
+    {
+      cidr_block        = "10.0.1.0/24"
+      availability_zone = "us-east-1a"
+    },
+    {
+      cidr_block        = "10.0.2.0/24"
+      availability_zone = "us-east-1b"
+    }
+  
+  ]
 }
+
 
 variable "namespaces" {
   type    = list(string)
   default = ["my_namespace"]
 }
 
-variable "ingress" {
+variable "ingress_rules" {
+  description = "Ingress rules for the security group"
   type = list(object({
+    description = string
     from_port   = number
     to_port     = number
     protocol    = string
-    cidr_blocks = list(string)
   }))
-  default = [{
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/8"]
-  }]
+  default = [
+    {
+      description = "Allow TLS (HTTPS) inbound traffic from VPC"
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+    },
+    {
+      description = "Allow HTTP (HTTP) inbound traffic from VPC"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+    },
+    {
+      description = "Allow custom port (8080) inbound traffic from VPC"
+      from_port   = 8080
+      to_port     = 8080
+      protocol    = "tcp"
+    }
+  ]
 }
 
 variable "capacity" {
