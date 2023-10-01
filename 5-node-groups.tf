@@ -12,7 +12,7 @@ cluster_name = var.cluster_name
     
     scaling_config {
         desired_size = 1
-        max_size     = 2
+        max_size     = 4
         min_size     = 1
     }
     update_config {
@@ -20,7 +20,7 @@ cluster_name = var.cluster_name
     }
     ami_type = "AL2_x86_64"
     capacity_type = "ON_DEMAND"
-    instance_types = ["t2.micro"]
+    instance_types = ["t2.small"]
     disk_size = 20
     labels = {
         "Environment" = "staging"
@@ -28,7 +28,8 @@ cluster_name = var.cluster_name
 
     depends_on = [ aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.AmazonEKS_CNI_Policy,
-     aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly]
+     aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly,
+     aws_eks_cluster.my-eks]
 
   tags={
     Name = "general"
