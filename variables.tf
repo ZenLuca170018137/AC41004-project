@@ -34,12 +34,8 @@ variable "subnets" {
       cidr_block        = "10.0.96.0/19"
       availability_zone = "us-east-1b"
     }
-
-    
-  
   ]
 }
-
 
 variable "namespaces" {
   type    = list(string)

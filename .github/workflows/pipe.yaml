@@ -1,0 +1,48 @@
+#Workflow name
+name: Terraform Workflow - Destroy
+
+
+#Trigger, destroy works on the click of the workflow dispatch command
+on:
+  workflow_dispatch:
+
+#Give permission to read and write
+permissions:
+      id-token: write
+      contents: read
+
+#variables needed to access AWS cloud
+env: 
+  TF_WORKSPACE: "AC41004-project"
+  CONFIG_DIRECTORY: "./"
+
+  #Keys kept secret in GitHub Secrets
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  REGION: us-east-1
+
+#Workflow's jobs
+jobs:
+  initialise:
+    runs-on: ubuntu-latest 
+    steps:
+
+      #Check out the code form the repository
+    - name: Checkout code
+      uses: actions/checkout@
+      
+      #Install terraform
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1 
+
+      #Initialise terraform
+    - name: Initialize Terraform
+      run: terraform init 
+
+      #Validate terraform
+    - name: Validate
+      run: terraform validate
+
+      #Destory command to destroy all the cluster created
+    - name: destroy
+      run: terraform destroy --auto-approve

@@ -8,16 +8,10 @@ resource "aws_eks_cluster" "my-eks" {
       aws_subnet.private-1.id,
       aws_subnet.private-2.id
     ]
-    
-   
 }
-
-
-
   depends_on = [
 aws_iam_role_policy_attachment.AmazonEKSServicePolicy,
 aws_iam_role_policy_attachment.AmazonEKSVPCResourceController,
-
   ]
 }
 
