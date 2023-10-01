@@ -11,16 +11,19 @@ cluster_name = var.cluster_name
  
     
     scaling_config {
-        desired_size = 1
-        max_size     = 4
-        min_size     = 1
+        desired_size = var.capacity[0].desired_size
+        max_size     = var.capacity[0].max_size
+        min_size     = var.capacity[0].min_size
     }
     update_config {
         max_unavailable = "1"
     }
+  
     ami_type = "AL2_x86_64"
-    capacity_type = "ON_DEMAND"
-    instance_types = ["t2.small"]
+
+    capacity_type = var.capacity[0].capacity_type
+    instance_types = var.capacity[0].instance_types
+
     disk_size = 20
     labels = {
         "Environment" = "staging"
