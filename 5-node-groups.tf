@@ -18,9 +18,12 @@ cluster_name = var.cluster_name
     update_config {
         max_unavailable = "1"
     }
+  
     ami_type = "AL2_x86_64"
+
     capacity_type = var.capacity[0].capacity_type
     instance_types = var.capacity[0].instance_types
+
     disk_size = 20
     labels = {
         "Environment" = "staging"
@@ -28,7 +31,8 @@ cluster_name = var.cluster_name
 
     depends_on = [ aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.AmazonEKS_CNI_Policy,
-     aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly]
+     aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly,
+     aws_eks_cluster.my-eks]
 
   tags={
     Name = "general"
