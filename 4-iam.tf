@@ -120,7 +120,7 @@ resource "aws_iam_instance_profile" "worker" {
 
 //iam open ID connect
 resource "aws_iam_openid_connect_provider" "default_OIDC" {
-  url = "https://oidc.eks.$${var.region}.amazonaws.com/id/$${aws_eks_cluster.my-eks.id}"
+  url = "https://oidc.eks.us-east-1.amazonaws.com/id/${aws_eks_cluster.my-eks.id}"
 
   client_id_list = [
      "sts.amazonaws.com"
