@@ -6,8 +6,8 @@ name: Terraform Workflow - Init and Apply
 #Workflow dispatch to run the apply command and create the cluster
 on:
   workflow_dispatch:
-  push:
-    branches:
+  push: 
+    branches: 
       - main
 
 #Give permission to read and write
