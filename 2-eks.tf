@@ -12,6 +12,11 @@ resource "aws_eks_cluster" "my-eks" {
   depends_on = [
 aws_iam_role_policy_attachment.AmazonEKSServicePolicy,
 aws_iam_role_policy_attachment.AmazonEKSVPCResourceController,
+aws_vpc.vpc,
+aws_subnet.public-1,
+aws_subnet.public-2,
+aws_subnet.private-1,
+aws_subnet.private-2
   ]
 }
 

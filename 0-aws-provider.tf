@@ -7,7 +7,7 @@ terraform {
     bucket                  = "awsbucketteam8"
     key                     = "my-terraform-project"
     region                  = "us-east-1"
-    #shared_credentials_file = "~/.aws/credentials"
+    shared_credentials_file = "~/.aws/credentials"
   }
 }
 terraform {

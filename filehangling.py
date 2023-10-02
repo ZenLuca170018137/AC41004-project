@@ -4,12 +4,15 @@ def fileHandling(filename, variables):
 
     with open(f'{filename}.yaml','r') as f:
         output = yaml.safe_load(f)
-    print(output["region"])
+    #print(output["region"])
 
             
     with open(variables, 'r', encoding='utf-8') as file:
         data = file.readlines()
     data[4] = '  default = "' + output["region"] + '"' + '\n'
+    data[9] = '  default = "' + output["cluster_name"] + '"' + '\n'
+    data[4] = '  default = "' + output["region"] + '"' + '\n'
+    
     with open(variables, 'w', encoding='utf-8') as file:
         file.writelines(data)
     

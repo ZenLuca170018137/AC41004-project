@@ -32,7 +32,10 @@ cluster_name = var.cluster_name
     depends_on = [ aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.AmazonEKS_CNI_Policy,
      aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly,
-     aws_eks_cluster.my-eks]
+     aws_eks_cluster.my-eks,
+     aws_vpc.vpc,
+     aws_subnet.private-1,
+     aws_subnet.private-2]
 
   tags={
     Name = "general"
