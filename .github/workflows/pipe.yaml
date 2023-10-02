@@ -29,7 +29,7 @@ jobs:
 
       #Check out the code form the repository
     - name: Checkout code
-      uses: actions/checkout@
+      uses: actions/checkout@v2
       
       #Install terraform
     - name: Set up Terraform
