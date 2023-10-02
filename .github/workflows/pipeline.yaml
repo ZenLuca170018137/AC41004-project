@@ -49,8 +49,7 @@ jobs:
 
       #Run terraform plan pre-load the changes to apply
     - name: plan
-      run: terraform plan -destroy
-
+      run: terraform plan 
       #Applly changes to the terraform file and run the cluster
       #trigger the apply step only if the workflow dispatch button is pressed
     - name: apply
