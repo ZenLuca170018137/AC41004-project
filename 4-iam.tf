@@ -111,11 +111,9 @@ resource "aws_iam_role_policy_attachment" "autoscaler" {
   role       = aws_iam_role.worker.name
 }
 
-resource "aws_iam_instance_profile" "worker" {
-  depends_on = [aws_iam_role.worker]
-  name       = "ed-eks-worker-new-profile"
-  role       = aws_iam_role.worker.name
-}
+
+
+
 
 
 //iam open ID connect
@@ -133,3 +131,39 @@ output"oidc" {
   value = aws_iam_openid_connect_provider.default_OIDC.url
   
 }
+//auth
+resource "kubernetes_config_map" "aws_auth" {
+  metadata {
+    name      = "aws-auth"
+    namespace = "kube-system"
+  }
+
+  data = {
+    mapRoles = <<EOF
+- rolearn: ${aws_iam_role.master.arn}
+  username: ${aws_iam_role.master.name}
+  groups:
+    - system:masters
+- rolearn: ${aws_iam_role.worker.arn}
+  username: ${aws_iam_role.worker.name}
+  groups:
+    - system:bootstrappers
+    - aws-node
+EOF
+  }
+  
+  depends_on = [
+    aws_eks_cluster.my-eks,
+
+  ]
+}
+data "aws_eks_cluster_auth" "cluster" {
+  name = aws_eks_cluster.my-eks.name
+}
+provider "kubernetes" {
+  host                   = aws_eks_cluster.my-eks.endpoint
+  cluster_ca_certificate = base64decode(aws_eks_cluster.my-eks.certificate_authority.0.data)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+
+}
+
