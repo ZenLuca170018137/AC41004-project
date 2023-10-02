@@ -1,0 +1,58 @@
+#Workflow name
+name: Terraform Workflow - Init and Apply
+
+#Triggers
+#Push to initialise terraform and plan the changes
+#Workflow dispatch to run the apply command and create the cluster
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+#Give permission to read and write
+permissions:
+      id-token: write
+      contents: read
+
+#variables needed to access AWS cloud
+env:
+  TF_WORKSPACE: "AC41004-project"
+  CONFIG_DIRECTORY: "./"
+
+  #Keys kept secret in GitHub Secrets
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  REGION: us-east-1
+
+#Workflow's jobs
+jobs:
+  initialise:
+    runs-on: ubuntu-latest 
+    steps:
+
+      #Check out the code form the repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+      #Install terraform
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1 
+
+      #Initialise terraform
+    - name: Initialize Terraform
+      run: terraform init 
+
+      #Validate terraform
+    - name: Validate
+      run: terraform validate 
+
+      #Run terraform plan pre-load the changes to apply
+    - name: plan
+      run: terraform plan -destroy
+
+      #Applly changes to the terraform file and run the cluster
+      #trigger the apply step only if the workflow dispatch button is pressed
+    - name: apply
+      run: terraform apply --auto-approve
+      if: github.event_name=='workflow_dispatch'
