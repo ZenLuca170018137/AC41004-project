@@ -1,57 +1,24 @@
-module "eks" {
-    source  = "terraform-aws-modules/eks/aws"
-    version = "19.16.0"
-
-    cluster_name = "my-eks"
-    cluster_version = "1.27"
-
-    cluster_endpoint_private_access = true
-    cluster_endpoint_public_access = true
-
-    vpc_id = module.vpc.vpc_id
-    subnet_ids = module.vpc.private_subnets
-
-    enable_irsa = true
-
-    eks_managed_node_group_defaults = {
-        disk_size = 50
-    }
-
-    eks_managed_node_groups = {
-        general = {
-            desired_size = 1
-            min_size = 1
-            max_size = 2
-
-            labels = {
-                role = "general"
-            }
-
-            instance_types = ["t3.small"]
-            capacity_type = "ON_DEMAND"
-        }
-
-        spot = {
-            desired_size = 1
-            min_size = 1
-            max_size = 2
-
-            labels = {
-                role = "spot"
-            }
-
-            taints = [{
-                key = "market"
-                value = "spot"
-                effect = "NO_SCHEDULE"
-            }]
-
-            instance_types = ["t3.micro"]
-            capacity_type = "SPOT"
-        }
-    }
-
-    tags = {
-        Envrironment = "staging"
-    }
+resource "aws_eks_cluster" "my-eks" {
+  name     = var.cluster_name
+  role_arn = aws_iam_role.master.arn
+ vpc_config {
+    subnet_ids = [
+      aws_subnet.public-1.id,
+      aws_subnet.public-2.id,
+      aws_subnet.private-1.id,
+      aws_subnet.private-2.id
+    ]
 }
+  depends_on = [
+aws_iam_role_policy_attachment.AmazonEKSServicePolicy,
+aws_iam_role_policy_attachment.AmazonEKSVPCResourceController,
+  ]
+}
+
+/* output "endpoint" {
+  value = aws_eks_cluster.example.endpoint
+}
+
+output "kubeconfig-certificate-authority-data" {
+  value = aws_eks_cluster.example.certificate_authority[0].data
+} */

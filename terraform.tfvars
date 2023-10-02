@@ -1,4 +1,4 @@
-# this file sets default values for variables; if we modify these
+/* # this file sets default values for variables; if we modify these
 # with preferences specified in config file before running
 # terraform, this could be easy place to set values
 
@@ -20,4 +20,4 @@ capacity = [{
   max_size       = 2
   instance_types = ["t3.micro"]
   capacity_type  = "SPOT"
-}]
+}] */
