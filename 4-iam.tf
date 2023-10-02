@@ -124,7 +124,7 @@ resource "aws_iam_openid_connect_provider" "default_OIDC" {
      "sts.amazonaws.com"
   ]
 
-  thumbprint_list = ["9e99a48a9960b14926bb7f3b02e22da2b0ab7280"]
+  thumbprint_list = ["aaa68bb211d468db8a8a19561ccba2e4043dcc80"]
 }
 
 output"oidc" {
