@@ -83,8 +83,8 @@ variable "capacity" {
   default = [{
     desired_size   = 1
     min_size       = 1
-    max_size       = 2
-    instance_types = ["t3.micro"]
-    capacity_type  = "SPOT"
+    max_size       = 4
+    instance_types = ["t2.small"]
+    capacity_type  = "ON_DEMAND"
   }]
 }

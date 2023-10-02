@@ -11,9 +11,9 @@ cluster_name = var.cluster_name
  
     
     scaling_config {
-        desired_size = var.capacity[0].desired_size
-        max_size     = var.capacity[0].max_size
-        min_size     = var.capacity[0].min_size
+        desired_size = 1
+        max_size     = 4
+        min_size     = 1
     }
     update_config {
         max_unavailable = "1"
@@ -21,8 +21,8 @@ cluster_name = var.cluster_name
   
     ami_type = "AL2_x86_64"
 
-    capacity_type = var.capacity[0].capacity_type
-    instance_types = var.capacity[0].instance_types
+    capacity_type = "ON_DEMAND"
+    instance_types = ["t2.small"]
 
     disk_size = 20
     labels = {
