@@ -117,4 +117,19 @@ resource "aws_iam_instance_profile" "worker" {
   role       = aws_iam_role.worker.name
 }
 
+//iam open ID connect
+resource "aws_iam_openid_connect_provider" "default_OIDC" {
+  url = "https://oidc.eks.$${var.region}.amazonaws.com/id/$${aws_eks_cluster.my-eks.id}"
+
+  client_id_list = [
+     "sts.amazonaws.com"
+  ]
+
+  thumbprint_list = ["9e99a48a9960b14926bb7f3b02e22da2b0ab7280"]
+}
+
+output"oidc" {
+  value = aws_iam_openid_connect_provider.default_OIDC.url
+  
+}
 
