@@ -148,7 +148,6 @@ resource "kubernetes_config_map" "aws_auth" {
   username: ${aws_iam_role.worker.name}
   groups:
     - system:bootstrappers
-    - aws-node
 EOF
   }
   
