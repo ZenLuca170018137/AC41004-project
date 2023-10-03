@@ -35,11 +35,10 @@ variable "namespaces" {
   type    = list(string)
   default = ["my_namespace"]
 }
-  default = ["my_namespace"]
 variable "ingress_rules" {
   description = "Ingress rules for the security group"
   type = list(object({
-  default = ["my_namespace"]
+  description = string
     from_port   = number
     to_port     = number
     protocol    = string
