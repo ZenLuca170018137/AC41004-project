@@ -148,6 +148,8 @@ resource "kubernetes_config_map" "aws_auth" {
   username: ${aws_iam_role.worker.name}
   groups:
     - system:bootstrappers
+    -aws-node
+    - system:nodes
 EOF
   }
   
@@ -156,6 +158,7 @@ EOF
 
   ]
 }
+
 data "aws_eks_cluster_auth" "cluster" {
   name = aws_eks_cluster.my-eks.name
 }
