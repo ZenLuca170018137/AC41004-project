@@ -40,7 +40,10 @@ jobs:
     - name: Add python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11' # install the python version needed
+        python-version: '3.11'
+    - name: PyYAML
+      run: pip install PyYAML
+      
       #Install terraform
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1 
