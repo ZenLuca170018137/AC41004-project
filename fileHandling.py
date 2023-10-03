@@ -23,8 +23,8 @@ def fileHandling(filename, variables):
     data[25] = '      availability_zone = "' + output["private_subnets"][3] + '"' + '\n'
     data[28] = '      cidr_block        = "' + output["private_subnets"][4] + '"' + '\n'
     data[29] = '      availability_zone = "' + output["private_subnets"][5] + '"' + '\n'
-    data[33] = '      cidr_block        = "' + output["private_subnets"][6] + '"' + '\n'
-    data[34] = '      availability_zone = "' + output["private_subnets"][7] + '"' + '\n'
+    data[32] = '      cidr_block        = "' + output["private_subnets"][6] + '"' + '\n'
+    data[33] = '      availability_zone = "' + output["private_subnets"][7] + '"' + '\n'
 
 
     data[40] = '  default = ["' + output["namespaces"][0] + '"]' + '\n'
@@ -39,8 +39,8 @@ def fileHandling(filename, variables):
     data[61] = '      protocol    = "' + output["ingress_HTTP"]["protocol"] + '"' + '\n'
 
     data[65] = '      from_port   = ' + str(output["ingress_custom"]["from_port"])  + '\n'
-    data[64] = '      to_port     = ' + str(output["ingress_custom"]["to_port"]) + '\n'
-    data[63] = '      protocol    = "' + output["ingress_custom"]["protocol"] + '"' + '\n'
+    data[66] = '      to_port     = ' + str(output["ingress_custom"]["to_port"]) + '\n'
+    data[67] = '      protocol    = "' + output["ingress_custom"]["protocol"] + '"' + '\n'
 
 
     data[81] = '    desired_size   = ' + str(output["capacity"]["desired_size"]) + '\n'
