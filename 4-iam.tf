@@ -133,6 +133,7 @@ output"oidc" {
 }
 //auth
   resource "kubernetes_config_map" "aws_auth" {
+    
     metadata {
       name      = "aws-auth"
       namespace = "kube-system"
@@ -144,18 +145,19 @@ output"oidc" {
     groups:
       - system:masters
   - rolearn: ${aws_iam_role.worker.arn}
-    username: system:node:{{EC2PrivateDNSName}}
+    username: ${aws_iam_role.worker.name}
     groups:
       - system:bootstrappers
       - aws-node
       - system:nodes
   EOF
     }
-    
+  
   depends_on = [
-    aws_eks_cluster.my-eks,
+   aws_eks_node_group.general
 
   ]
+  
 }
 
 data "aws_eks_cluster_auth" "cluster" {
