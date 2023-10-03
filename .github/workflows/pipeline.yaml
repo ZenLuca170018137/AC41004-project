@@ -47,7 +47,7 @@ jobs:
       
 
     - name: Import changes form config file
-      run: python .\fileHandling.py
+      run: python fileHandling.py
 
     - name: Set up AWS credentials
       run: |
