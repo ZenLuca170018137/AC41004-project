@@ -19,6 +19,7 @@ permissions:
 env:
   TF_WORKSPACE: "AC41004-project"
   CONFIG_DIRECTORY: "./"
+  TF_LOG: TRACE
  
 
   #Keys kept secret in GitHub Secrets
