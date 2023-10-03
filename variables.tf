@@ -20,20 +20,14 @@ variable "subnets" {
     {
       cidr_block        = "10.0.0.0/19"
       availability_zone = "us-east-1a"
-    },
-    {
       cidr_block        = "10.0.32.0/19"
       availability_zone = "us-east-1b"
-    },
-    {
-       cidr_block        = "10.0.64.0/19"
+      cidr_block        = "10.0.64.0/19"
       availability_zone = "us-east-1a"
-
-    },
-    {
       cidr_block        = "10.0.96.0/19"
       availability_zone = "us-east-1b"
-    }
+
+    },
   ]
 }
 
@@ -41,11 +35,11 @@ variable "namespaces" {
   type    = list(string)
   default = ["my_namespace"]
 }
-
+  default = ["my_namespace"]
 variable "ingress_rules" {
   description = "Ingress rules for the security group"
   type = list(object({
-    description = string
+  default = ["my_namespace"]
     from_port   = number
     to_port     = number
     protocol    = string
