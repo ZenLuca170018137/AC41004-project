@@ -132,27 +132,26 @@ output"oidc" {
   
 }
 //auth
-resource "kubernetes_config_map" "aws_auth" {
-  metadata {
-    name      = "aws-auth"
-    namespace = "kube-system"
-  }
-
-  data = {
-    mapRoles = <<EOF
-- rolearn: ${aws_iam_role.master.arn}
-  username: ${aws_iam_role.master.name}
-  groups:
-    - system:masters
-- rolearn: ${aws_iam_role.worker.arn}
-  username: ${aws_iam_role.worker.name}
-  groups:
-    - system:bootstrappers
-    -aws-node
-    - system:nodes
-EOF
-  }
-  
+  resource "kubernetes_config_map" "aws_auth" {
+    metadata {
+      name      = "aws-auth"
+      namespace = "kube-system"
+    }
+    data = {
+      mapRoles = <<EOF
+  - rolearn: ${aws_iam_role.master.arn}
+    username: ${aws_iam_role.master.name}
+    groups:
+      - system:masters
+  - rolearn: ${aws_iam_role.worker.arn}
+    username: system:node:{{EC2PrivateDNSName}}
+    groups:
+      - system:bootstrappers
+      - aws-node
+      - system:nodes
+  EOF
+    }
+    
   depends_on = [
     aws_eks_cluster.my-eks,
 

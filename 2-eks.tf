@@ -27,3 +27,13 @@ aws_subnet.private-2
 output "kubeconfig-certificate-authority-data" {
   value = aws_eks_cluster.example.certificate_authority[0].data
 } */
+
+resource "aws_cloudwatch_log_group" "eks_worker_nodes" {
+  name              = "/aws/eks/worker-nodes"
+  retention_in_days = 7
+}
+
+resource "aws_cloudwatch_log_stream" "eks_worker_nodes_stream" {
+  name           = "worker-nodes-stream"
+  log_group_name = aws_cloudwatch_log_group.eks_worker_nodes.name
+}
