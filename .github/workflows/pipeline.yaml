@@ -55,6 +55,8 @@ jobs:
 
     - name: Insert changes in the variables.tf
       run: |
+            git config --global user.email "githuuaction@gmail.com"
+            git config --global user.name "BEEP BOOP"
             git add .
             git commit -m "new variables"
             git push
