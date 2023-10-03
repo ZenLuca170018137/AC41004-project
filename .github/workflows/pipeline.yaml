@@ -49,20 +49,9 @@ jobs:
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1 
       
-
+      #Appply changes to the .tf file
     - name: Import changes form config file
       run: python fileHandling.py
-
-    - name: Insert changes in the variables.tf
-      run: |    
-            git config --global user.name "ZenLuca170018137"
-            git config --global user.email "lzen@dundee.ac.uk"
-            git add .
-            git commit -m "Add newfile.txt"
-            git push origin main
-      if: github.event_name=='workflow_dispatch'
-
-  
 
 
     # - name: Set up AWS credentials
@@ -71,18 +60,18 @@ jobs:
     #         export AWS_SECRET_ACCESS_KEY= ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       #Initialise terraform
-    # - name: Initialize Terraform
-    #   run: terraform init 
+    - name: Initialize Terraform
+      run: terraform init 
 
-    #   #Validate terraform
-    # - name: Validate
-    #   run: terraform validate 
+      #Validate terraform
+    - name: Validate
+      run: terraform validate 
 
-    #   #Run terraform plan pre-load the changes to apply
-    # - name: plan
-    #   run: terraform plan 
-    #   #Applly changes to the terraform file and run the cluster
-    #   #trigger the apply step only if the workflow dispatch button is pressed
-    # - name: apply
-    #   run: terraform apply --auto-approve
-    #   if: github.event_name=='workflow_dispatch'
+      #Run terraform plan pre-load the changes to apply
+    - name: plan
+      run: terraform plan 
+      #Applly changes to the terraform file and run the cluster
+      #trigger the apply step only if the workflow dispatch button is pressed
+    - name: apply
+      run: terraform apply --auto-approve
+      if: github.event_name=='workflow_dispatch'
