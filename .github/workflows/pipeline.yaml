@@ -36,16 +36,16 @@ jobs:
       #Check out the code form the repository
     - name: Checkout code
       uses: actions/checkout@v2
-    
+
+    - name: Add python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11' # install the python version needed
       #Install terraform
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1 
+      
 
-    - name: setup python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10' # install the python version needed
-        
     - name: Import changes form config file
       run: py .\fileHandling.py
 
