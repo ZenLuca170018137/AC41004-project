@@ -15,6 +15,7 @@ cluster_name = var.cluster_name
         max_size     = 4
         min_size     = 1
     }
+    
     update_config {
         max_unavailable = "1"
     }
@@ -35,7 +36,8 @@ cluster_name = var.cluster_name
      aws_eks_cluster.my-eks,
      aws_vpc.vpc,
      aws_subnet.private-1,
-     aws_subnet.private-2]
+     aws_subnet.private-2,
+kubernetes_config_map.aws_auth]
 
   tags={
     Name = "general"
