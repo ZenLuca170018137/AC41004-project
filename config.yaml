@@ -1,7 +1,7 @@
 # Configure the AWS cluster
 
 #Set region
-region: us-east-2
+region: eu-west-1
 
 #Set cluster name
 cluster_name: my_eks
