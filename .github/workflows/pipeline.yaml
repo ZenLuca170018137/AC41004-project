@@ -54,13 +54,7 @@ jobs:
       run: python fileHandling.py
 
     - name: Insert changes in the variables.tf
-      run: |
-            git config --global user.email "l.zen@dundee.ac.uk"
-            git config --global user.name "ZenLuca170018137"
-            git add .
-            git commit -m "new variables"
-            git push
-      if: github.event_name=='workflow_dispatch'
+      uses: stefanzweifel/git-auto-commit-action@v4
 
 
     # - name: Set up AWS credentials
