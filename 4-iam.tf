@@ -52,30 +52,30 @@ resource "aws_iam_role" "worker" {
 POLICY
 }
 
-resource "aws_iam_policy" "autoscaler" {
-  name   = "ed-eks-autoscaler-policy"
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "autoscaling:DescribeAutoScalingGroups",
-        "autoscaling:DescribeAutoScalingInstances",
-        "autoscaling:DescribeTags",
-        "autoscaling:DescribeLaunchConfigurations",
-        "autoscaling:SetDesiredCapacity",
-        "autoscaling:TerminateInstanceInAutoScalingGroup",
-        "ec2:DescribeLaunchTemplateVersions"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
-}
-EOF
+# resource "aws_iam_policy" "autoscaler" {
+#   name   = "ed-eks-autoscaler-policy"
+#   policy = <<EOF
+# {
+#   "Version": "2012-10-17",
+#   "Statement": [
+#     {
+#       "Action": [
+#         "autoscaling:DescribeAutoScalingGroups",
+#         "autoscaling:DescribeAutoScalingInstances",
+#         "autoscaling:DescribeTags",
+#         "autoscaling:DescribeLaunchConfigurations",
+#         "autoscaling:SetDesiredCapacity",
+#         "autoscaling:TerminateInstanceInAutoScalingGroup",
+#         "ec2:DescribeLaunchTemplateVersions"
+#       ],
+#       "Effect": "Allow",
+#       "Resource": "*"
+#     }
+#   ]
+# }
+# EOF
 
-}
+#}
 
 resource "aws_iam_role_policy_attachment" "AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
@@ -106,17 +106,17 @@ resource "aws_iam_role_policy_attachment" "s3" {
   role       = aws_iam_role.worker.name
 }
 
-resource "aws_iam_role_policy_attachment" "autoscaler" {
-  policy_arn = aws_iam_policy.autoscaler.arn
-  role       = aws_iam_role.worker.name
-}
+# resource "aws_iam_role_policy_attachment" "autoscaler" {
+#   policy_arn = aws_iam_policy.autoscaler.arn
+#   role       = aws_iam_role.worker.name
+# }
 
 
 
 
 
 
-/* //iam open ID connect
+//iam open ID connect
 resource "aws_iam_openid_connect_provider" "default_OIDC" {
   url = "https://oidc.eks.us-east-1.amazonaws.com/id/${aws_eks_cluster.my-eks.id}"
 
@@ -130,5 +130,40 @@ resource "aws_iam_openid_connect_provider" "default_OIDC" {
 output"oidc" {
   value = aws_iam_openid_connect_provider.default_OIDC.url
   
-} */
- 
+}
+//auth
+resource "kubernetes_config_map" "aws_auth" {
+  metadata {
+    name      = "aws-auth"
+    namespace = "kube-system"
+  }
+
+  data = {
+    mapRoles = <<EOF
+- rolearn: ${aws_iam_role.master.arn}
+  username: ${aws_iam_role.master.name}
+  groups:
+    - system:masters
+- rolearn: ${aws_iam_role.worker.arn}
+  username: ${aws_iam_role.worker.name}
+  groups:
+    - system:bootstrappers
+    - aws-node
+EOF
+  }
+  
+  depends_on = [
+    aws_eks_cluster.my-eks,
+
+  ]
+}
+data "aws_eks_cluster_auth" "cluster" {
+  name = aws_eks_cluster.my-eks.name
+}
+provider "kubernetes" {
+  host                   = aws_eks_cluster.my-eks.endpoint
+  cluster_ca_certificate = base64decode(aws_eks_cluster.my-eks.certificate_authority.0.data)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+
+}
+
