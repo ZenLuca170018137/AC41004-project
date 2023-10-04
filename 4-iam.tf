@@ -116,7 +116,7 @@ resource "aws_iam_role_policy_attachment" "autoscaler" {
 
 
 
-//iam open ID connect
+/* //iam open ID connect
 resource "aws_iam_openid_connect_provider" "default_OIDC" {
   url = "https://oidc.eks.us-east-1.amazonaws.com/id/${aws_eks_cluster.my-eks.id}"
 
@@ -130,97 +130,5 @@ resource "aws_iam_openid_connect_provider" "default_OIDC" {
 output"oidc" {
   value = aws_iam_openid_connect_provider.default_OIDC.url
   
-}
- //auth
-  resource "kubernetes_config_map" "aws_auth" {
-    
-    metadata {
-      name      = "aws-auth"
-      namespace = "kube-system"
-    }
-    data = {
-      mapRoles = <<EOF
-  - rolearn: ${aws_iam_role.master.arn}
-    username: ${aws_iam_role.master.name}
-    groups:
-      - system:masters
-  - rolearn: ${aws_iam_role.worker.arn}
-    username: ${aws_iam_role.worker.name}
-    
-
-    groups:
-      - system:bootstrappers
-      - aws-node
-      - system:nodes
-
-  EOF
-
-  
-    }
-
-  
-  depends_on = [
-   aws_eks_cluster.my-eks
-
-  ]
-  
-} 
-
-data "aws_eks_cluster_auth" "cluster" {
-  name = aws_eks_cluster.my-eks.name
-}
-provider "kubernetes" {
-  host                   = aws_eks_cluster.my-eks.endpoint
-  cluster_ca_certificate = base64decode(aws_eks_cluster.my-eks.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-
-
-}
-resource "kubernetes_service_account" "example" {
-  metadata {
-    name = "terraform-example"
-   
-  }
-  secret {
-    name = "${kubernetes_secret.example.metadata.0.name}"
-  }
-  depends_on = [aws_eks_cluster.my-eks]
-}
-
-resource "kubernetes_secret" "example" {
-  metadata {
-    name = "test"
-  }
-  depends_on = [aws_eks_cluster.my-eks]
-}
-resource "kubernetes_cluster_role" "Kubeconf" {
-  metadata {
-    name = "kubeconf"
+} */
  
-  }
-
-  rule {
-    api_groups = [""]
-    resources  = ["namespaces", "pods"]
-    verbs      = ["get", "list", "watch"]
-  }
-  depends_on = [aws_eks_cluster.my-eks]
-}
-resource "kubernetes_cluster_role_binding" "read_pods_binding" {
-  metadata {
-    name = "read-pods-binding"
-  }
-
-  subject {
-    kind      = "ServiceAccount"
-    name      = kubernetes_service_account.example.metadata[0].name
-  
-  }
-
-  role_ref {
-    api_group = "rbac.authorization.k8s.io"
-    kind      = "ClusterRole"
-    name      = kubernetes_cluster_role.Kubeconf.metadata[0].name
-  }
-  depends_on = [aws_eks_cluster.my-eks]
-}
