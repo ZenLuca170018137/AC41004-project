@@ -4,7 +4,7 @@ provider "aws" {
  
 terraform {
   backend "s3" {
-    bucket                  = "newbucketteam8"
+    bucket                  = "awsbucketteam-8"
     key                     = "my-terraform-project"
     region                  = "us-east-1"
     shared_credentials_file = "~/.aws/credentials"
