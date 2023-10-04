@@ -25,7 +25,7 @@ cluster_name = var.cluster_name
     capacity_type = "ON_DEMAND"
     instance_types = ["t2.small"]
    
-    disk_size = 20
+    disk_size = 40
     labels = {
         "Environment" = "staging"
     }
@@ -39,7 +39,7 @@ cluster_name = var.cluster_name
      aws_subnet.private-2,
 kubernetes_config_map.aws_auth]
 
-  tags={
+  tags = {
     Name = "general"
     Environment = "staging"
   }

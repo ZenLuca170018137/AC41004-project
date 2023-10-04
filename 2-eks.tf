@@ -18,6 +18,9 @@ aws_subnet.public-2,
 aws_subnet.private-1,
 aws_subnet.private-2
   ]
+  tags = {
+    Name=var.cluster_name,
+  }
 }
 
 /* output "endpoint" {
@@ -31,9 +34,13 @@ output "kubeconfig-certificate-authority-data" {
 resource "aws_cloudwatch_log_group" "eks_worker_nodes" {
   name              = "/aws/eks/worker-nodes"
   retention_in_days = 7
+  tags = {
+    Name="${var.cluster_name}-eks_worker_nodes",
+  }
 }
 
 resource "aws_cloudwatch_log_stream" "eks_worker_nodes_stream" {
   name           = "worker-nodes-stream"
   log_group_name = aws_cloudwatch_log_group.eks_worker_nodes.name
+  
 }
