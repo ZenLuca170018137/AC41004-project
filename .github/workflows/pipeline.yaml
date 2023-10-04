@@ -52,7 +52,15 @@ jobs:
       #Appply changes to the .tf file
     - name: Import changes form config file
       run: python fileHandling.py
-
+      #setting up kubernetes
+    - name: Set up AWS CLI
+      run: |
+        curl "https://d1vvhvl2y92vvt.cloudfront.net/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        sudo ./aws/install
+    - name: Generate kubeconfig for EKS cluster
+      run: |
+        aws eks update-kubeconfig --name my_eks
 
     # - name: Set up AWS credentials
     #   run: |

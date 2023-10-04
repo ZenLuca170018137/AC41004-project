@@ -131,7 +131,7 @@ output"oidc" {
   value = aws_iam_openid_connect_provider.default_OIDC.url
   
 }
-//auth
+ //auth
   resource "kubernetes_config_map" "aws_auth" {
     
     metadata {
@@ -146,19 +146,25 @@ output"oidc" {
       - system:masters
   - rolearn: ${aws_iam_role.worker.arn}
     username: ${aws_iam_role.worker.name}
+    
+
     groups:
       - system:bootstrappers
       - aws-node
       - system:nodes
+
   EOF
+
+  
     }
+
   
   depends_on = [
-   aws_eks_node_group.general
+   aws_eks_cluster.my-eks
 
   ]
   
-}
+} 
 
 data "aws_eks_cluster_auth" "cluster" {
   name = aws_eks_cluster.my-eks.name
