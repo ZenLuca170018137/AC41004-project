@@ -30,24 +30,24 @@ def fileHandling(filename, variables):
     data[40] = '  default = ["' + output["namespaces"][0] + '"]' + '\n'
 
 
-    data[53] = '      from_port   = ' + str(output["ingress_HTTPS"]["from_port"])  + '\n'
-    data[54] = '      to_port     = ' + str(output["ingress_HTTPS"]["to_port"]) + '\n'
-    data[55] = '      protocol    = "' + output["ingress_HTTPS"]["protocol"] + '"' + '\n'
+    data[50] = '      from_port   = ' + str(output["ingress_HTTPS"]["from_port"])  + '\n'
+    data[51] = '      to_port     = ' + str(output["ingress_HTTPS"]["to_port"]) + '\n'
+    data[52] = '      protocol    = "' + output["ingress_HTTPS"]["protocol"] + '"' + '\n'
 
-    data[59] = '      from_port   = ' + str(output["ingress_HTTP"]["from_port"])  + '\n'
-    data[60] = '      to_port     = ' + str(output["ingress_HTTP"]["to_port"]) + '\n'
-    data[61] = '      protocol    = "' + output["ingress_HTTP"]["protocol"] + '"' + '\n'
+    data[63] = '      from_port   = ' + str(output["ingress_HTTP"]["from_port"])  + '\n'
+    data[64] = '      to_port     = ' + str(output["ingress_HTTP"]["to_port"]) + '\n'
+    data[65] = '      protocol    = "' + output["ingress_HTTP"]["protocol"] + '"' + '\n'
 
-    data[65] = '      from_port   = ' + str(output["ingress_custom"]["from_port"])  + '\n'
-    data[66] = '      to_port     = ' + str(output["ingress_custom"]["to_port"]) + '\n'
-    data[67] = '      protocol    = "' + output["ingress_custom"]["protocol"] + '"' + '\n'
+    data[76] = '      from_port   = ' + str(output["ingress_custom"]["from_port"])  + '\n'
+    data[77] = '      to_port     = ' + str(output["ingress_custom"]["to_port"]) + '\n'
+    data[78] = '      protocol    = "' + output["ingress_custom"]["protocol"] + '"' + '\n'
 
 
-    data[81] = '    desired_size   = ' + str(output["capacity"]["desired_size"]) + '\n'
-    data[82] = '    min_size       = ' + str(output["capacity"]["min_size"]) + '\n'
-    data[83] = '    max_size       = ' + str(output["capacity"]["max_size"]) + '\n'
-    data[84] = '    instance_types = ["' + str(output["capacity"]["instance_types"][0]) + '"]' + '\n'
-    data[85] = '    capacity_type  = "' + output["capacity"]["capacity_type"] + '"'+ '\n'
+    data[91] = '    desired_size   = ' + str(output["capacity"]["desired_size"]) + '\n'
+    data[92] = '    min_size       = ' + str(output["capacity"]["min_size"]) + '\n'
+    data[93] = '    max_size       = ' + str(output["capacity"]["max_size"]) + '\n'
+    data[94] = '    instance_types = ["' + str(output["capacity"]["instance_types"][0]) + '"]' + '\n'
+    data[95] = '    capacity_type  = "' + output["capacity"]["capacity_type"] + '"'+ '\n'
 
 
     with open(variables, 'w', encoding='utf-8') as file:

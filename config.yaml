@@ -1,34 +1,31 @@
 # Configure the AWS cluster
 
-#Set region
+# Set region
 region: us-east-1
 
-#Set cluster name
+# Set cluster name
 cluster_name: my_eks
 
-# Subnets
+# Set subnets
 private_subnets:
-    #Subnet 1
+    # Subnet 1
     - 10.0.0.0/19
     - us-east-1a
-    #Subnet 2
+    # Subnet 2
     - 10.0.32.0/19
     - us-east-1b
-    #Subnet 3
+    # Subnet 3
     - 10.0.64.0/19
     - us-east-1a
-    #Subnet 4
+    # Subnet 4
     - 10.0.96.0/19
     - us-east-1b
 
-
-# Namespaces
-# This needs changed - unsure of what namespaces will be used
+# Set namespaces
 namespaces:
     - my_namespace
 
-# Ingress
-# Currently unsure what ingress variables we're changing
+# Configure ingress
 ingress_HTTPS:
     from_port: 443
     to_port: 443
@@ -44,11 +41,11 @@ ingress_custom:
     to_port: 8080
     protocol: tcp
 
-# Capacity
+# Set node group capacity
 capacity:
     desired_size: 1
     min_size: 1
     max_size: 4
-    instance_types: 
+    instance_types:
         - t2.small
     capacity_type: ON_DEMAND

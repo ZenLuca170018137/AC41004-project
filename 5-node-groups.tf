@@ -7,13 +7,11 @@ cluster_name = var.cluster_name
         aws_subnet.private-1.id,
         aws_subnet.private-2.id
     ]
-
- 
     
     scaling_config {
-        desired_size = 1
-        max_size     = 4
-        min_size     = 1
+        desired_size = var.capacity.desired_size
+        max_size     = var.capacity.max_size
+        min_size     = var.capacity.min_size
     }
     
     update_config {
@@ -22,8 +20,8 @@ cluster_name = var.cluster_name
   
     ami_type = "AL2_x86_64"
 
-    capacity_type = "ON_DEMAND"
-    instance_types = ["t2.small"]
+    capacity_type = var.capacity.capacity_type
+    instance_types = var.capacity.instance_types
    
     disk_size = 40
     labels = {
