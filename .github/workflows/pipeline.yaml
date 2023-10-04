@@ -20,7 +20,13 @@ env:
   TF_WORKSPACE: "AC41004-project"
   CONFIG_DIRECTORY: "./"
 
- 
+  - name: Set up AWS CLI
+    run: |
+      echo "$AWS_SECRET_ACCESS_KEY" > aws_secret_key
+      echo "$AWS_ACCESS_KEY_ID" > aws_access_key
+      aws configure set default.region $AWS_REGION
+      aws configure set aws_access_key_id $(cat aws_access_key)
+      aws configure set aws_secret_access_key $(cat aws_secret_key)
 
   #Keys kept secret in GitHub Secrets
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

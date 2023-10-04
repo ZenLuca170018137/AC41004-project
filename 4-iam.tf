@@ -174,6 +174,7 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(aws_eks_cluster.my-eks.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.cluster.token
 
+
 }
 resource "kubernetes_service_account" "example" {
   metadata {
@@ -183,12 +184,14 @@ resource "kubernetes_service_account" "example" {
   secret {
     name = "${kubernetes_secret.example.metadata.0.name}"
   }
+  depends_on = [aws_eks_cluster.my-eks]
 }
 
 resource "kubernetes_secret" "example" {
   metadata {
     name = "test"
   }
+  depends_on = [aws_eks_cluster.my-eks]
 }
 resource "kubernetes_cluster_role" "Kubeconf" {
   metadata {
@@ -201,6 +204,7 @@ resource "kubernetes_cluster_role" "Kubeconf" {
     resources  = ["namespaces", "pods"]
     verbs      = ["get", "list", "watch"]
   }
+  depends_on = [aws_eks_cluster.my-eks]
 }
 resource "kubernetes_cluster_role_binding" "read_pods_binding" {
   metadata {
@@ -218,4 +222,5 @@ resource "kubernetes_cluster_role_binding" "read_pods_binding" {
     kind      = "ClusterRole"
     name      = kubernetes_cluster_role.Kubeconf.metadata[0].name
   }
+  depends_on = [aws_eks_cluster.my-eks]
 }
