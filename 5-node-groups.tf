@@ -24,6 +24,7 @@ cluster_name = var.cluster_name
 
     capacity_type = "ON_DEMAND"
     instance_types = ["t2.small"]
+   
 
     disk_size = 20
     labels = {

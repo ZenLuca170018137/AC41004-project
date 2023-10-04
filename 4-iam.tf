@@ -175,4 +175,47 @@ provider "kubernetes" {
   token                  = data.aws_eks_cluster_auth.cluster.token
 
 }
+resource "kubernetes_service_account" "example" {
+  metadata {
+    name = "terraform-example"
+   
+  }
+  secret {
+    name = "${kubernetes_secret.example.metadata.0.name}"
+  }
+}
 
+resource "kubernetes_secret" "example" {
+  metadata {
+    name = "test"
+  }
+}
+resource "kubernetes_cluster_role" "Kubeconf" {
+  metadata {
+    name = "kubeconf"
+ 
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["namespaces", "pods"]
+    verbs      = ["get", "list", "watch"]
+  }
+}
+resource "kubernetes_cluster_role_binding" "read_pods_binding" {
+  metadata {
+    name = "read-pods-binding"
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    name      = kubernetes_service_account.example.metadata[0].name
+  
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = kubernetes_cluster_role.Kubeconf.metadata[0].name
+  }
+}
