@@ -61,7 +61,10 @@ jobs:
 
       #Initialise terraform
     - name: Initialize Terraform
-      run: terraform init 
+      run: terraform init -migrate-state
+
+    - name: reconfigure
+      run: terraform init -reconfigure
 
       #Validate terraform
     - name: Validate
