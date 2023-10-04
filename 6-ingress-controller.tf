@@ -71,3 +71,8 @@ resource "aws_security_group_rule" "worker_egress" {
   protocol          = "-1"
   cidr_blocks       = ["0.0.0.0/0"]
 }
+
+//      TODO - put these descriptions in the right place
+//      description = "Allow TLS (HTTPS) inbound traffic from VPC"
+//      description = "Allow HTTP (HTTP) inbound traffic from VPC"
+//      description = "Allow custom port (8080) inbound traffic from VPC"

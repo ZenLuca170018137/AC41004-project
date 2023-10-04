@@ -40,49 +40,59 @@ variable "namespaces" {
   type    = list(string)
   default = ["my_namespace"]
 }
-variable "ingress_rules" {
-  description = "Ingress rules for the security group"
-  type = list(object({
-  description = string
+
+variable "ingress_https" {
+  type = object({
     from_port   = number
     to_port     = number
     protocol    = string
-  }))
-  default = [
-    {
-      description = "Allow TLS (HTTPS) inbound traffic from VPC"
+  })
+  default = ({
       from_port   = 443
       to_port     = 443
       protocol    = "tcp"
-    },
-    {
-      description = "Allow HTTP (HTTP) inbound traffic from VPC"
+  })
+}
+
+variable "ingress_http" {
+  type = object({
+    from_port   = number
+    to_port     = number
+    protocol    = string
+  })
+  default = ({
       from_port   = 80
       to_port     = 80
       protocol    = "tcp"
-    },
-    {
-      description = "Allow custom port (8080) inbound traffic from VPC"
+  })
+}
+
+variable "ingress_custom" {
+  type = object({
+    from_port   = number
+    to_port     = number
+    protocol    = string
+  })
+  default = ({
       from_port   = 8080
       to_port     = 8080
       protocol    = "tcp"
-    }
-  ]
+  })
 }
 
 variable "capacity" {
-  type = list(object({
+  type = object({
     desired_size   = number
     min_size       = number
     max_size       = number
     instance_types = list(string)
     capacity_type  = string
-  }))
-  default = [{
+  })
+  default = ({    
     desired_size   = 1
     min_size       = 1
     max_size       = 4
     instance_types = ["t2.small"]
     capacity_type  = "ON_DEMAND"
-  }]
+})
 }
