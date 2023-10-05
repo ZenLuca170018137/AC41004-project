@@ -79,7 +79,7 @@ variable "ingress_custom" {
       protocol    = "tcp"
   })
 }
-
+ 
 variable "capacity" {
   type = object({
     desired_size   = number
