@@ -9,7 +9,7 @@ variable "cluster_name" {
   type    = string
   default = "my_eks"
 }
-
+ 
 variable "subnets" {
   description = "List of subnets"
   type = list(object({
