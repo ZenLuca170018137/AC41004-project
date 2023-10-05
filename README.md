@@ -8,7 +8,7 @@ The config file has a list of variables which you can edit. For example, if you 
 
 ### THE PIPELINE
 
-After a commit on the main branch, a pipeline in GitHub Actions will automatically be triggered. This will initialise Terraform, validate it, and create a Terraform plan.
+After a commit on the main branch, a pipeline in GitHub Actions will automatically be triggered. This will initialise Terraform, validate it, and create a Terraform plan. Moreover, the pipeline will automatically import the user preferences from the config file to the variables.tf file.
 
 In order to apply Terraform changes, the user must manually trigger the workflow to do this in the GitHub Actions GUI.
 
