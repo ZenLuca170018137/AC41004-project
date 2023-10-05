@@ -11,16 +11,16 @@ cluster_name: the_new_cluster
 private_subnets:
     # Subnet 1
     - 10.0.0.0/19
-    - eu-west-2a
+    - us-east-1a
     # Subnet 2
     - 10.0.32.0/19
-    - eu-west-2b
+    - us-east-1b
     # Subnet 3
     - 10.0.64.0/19
-    - eu-west-2a
+    - us-east-1a
     # Subnet 4
     - 10.0.96.0/19
-    - eu-west-2b
+    - us-east-1b
 
 # Set namespaces
 namespaces:
@@ -49,6 +49,6 @@ capacity:
     max_size: 3
     instance_types:
     # see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html
-        - t3.medium
+        - t2.small
     # see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html
-    capacity_type: SPOT
+    capacity_type: ON_DEMAND
