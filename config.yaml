@@ -1,6 +1,7 @@
 # Configure the AWS cluster
 
 # Set region
+# see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-regions
 region: us-east-1
 
 # Set cluster name
@@ -47,5 +48,7 @@ capacity:
     min_size: 1
     max_size: 4
     instance_types:
+    # see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html
         - t2.small
+    # see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html
     capacity_type: ON_DEMAND
