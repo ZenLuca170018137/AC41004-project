@@ -116,7 +116,7 @@ resource "aws_iam_role_policy_attachment" "s3" {
 
 
 
-//iam open ID connect
+/* //iam open ID connect
 resource "aws_iam_openid_connect_provider" "default_OIDC" {
   url = "https://oidc.eks.us-east-1.amazonaws.com/id/${aws_eks_cluster.my-eks.id}"
 
@@ -130,8 +130,8 @@ resource "aws_iam_openid_connect_provider" "default_OIDC" {
 output"oidc" {
   value = aws_iam_openid_connect_provider.default_OIDC.url
   
-}
-//auth
+}  */
+/* //auth
 resource "kubernetes_config_map" "aws_auth" {
   metadata {
     name      = "aws-auth"
@@ -165,5 +165,5 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(aws_eks_cluster.my-eks.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.cluster.token
 
-}
+} */
 
