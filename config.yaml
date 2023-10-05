@@ -2,29 +2,29 @@
 
 # Set region
 # see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-regions
-region: us-east-1
+region: eu-west-2
 
 # Set cluster name
-cluster_name: my_eks
+cluster_name: the_new_cluster
 
 # Set subnets
 private_subnets:
     # Subnet 1
     - 10.0.0.0/19
-    - us-east-1a
+    - eu-west-2a
     # Subnet 2
     - 10.0.32.0/19
-    - us-east-1b
+    - eu-west-2b
     # Subnet 3
     - 10.0.64.0/19
-    - us-east-1a
+    - eu-west-2a
     # Subnet 4
     - 10.0.96.0/19
-    - us-east-1b
+    - eu-west-2b
 
 # Set namespaces
 namespaces:
-    - my_namespace
+    - the_new_namespace
 
 # Configure ingress
 ingress_HTTPS:
@@ -44,11 +44,11 @@ ingress_custom:
 
 # Set node group capacity
 capacity:
-    desired_size: 1
+    desired_size: 2
     min_size: 1
-    max_size: 4
+    max_size: 3
     instance_types:
     # see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html
-        - t2.small
+        - t3.medium
     # see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html
-    capacity_type: ON_DEMAND
+    capacity_type: SPOT
