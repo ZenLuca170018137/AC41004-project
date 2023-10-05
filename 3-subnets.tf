@@ -17,7 +17,7 @@ resource "aws_subnet" "public-2" {
   availability_zone = var.subnets[1].availability_zone
 
   tags = {
-    name="public-2"
+name="public-2"
     Environment = "staging"
 
   }
@@ -41,7 +41,8 @@ resource "aws_subnet" "private-2" {
   availability_zone = var.subnets[3].availability_zone
 
   tags = {
-    name="priavte 2"
+    name="private 2"
+
     Environment = "staging"
   }
 }
