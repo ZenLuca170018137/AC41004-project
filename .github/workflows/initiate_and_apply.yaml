@@ -28,7 +28,7 @@ env:
 
 #Workflow's jobs
 jobs:
-  initialise:
+  run_pipeline:
     runs-on: ubuntu-latest 
     steps:
 
@@ -63,18 +63,18 @@ jobs:
     - name: Initialize Terraform
       run: terraform init -migrate-state
 
-    - name: reconfigure
+    - name: Reconfigure Terraform
       run: terraform init -reconfigure
 
       #Validate terraform
-    - name: Validate
+    - name: Validate Terraform
       run: terraform validate 
 
       #Run terraform plan pre-load the changes to apply
-    - name: plan
+    - name: Plan Terraform
       run: terraform plan 
       #Applly changes to the terraform file and run the cluster
       #trigger the apply step only if the workflow dispatch button is pressed
-    - name: apply
+    - name: Apply Terraform
       run: terraform apply --auto-approve
       if: github.event_name=='workflow_dispatch'

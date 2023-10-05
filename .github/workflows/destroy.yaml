@@ -24,7 +24,7 @@ env:
 
 #Workflow's jobs
 jobs:
-  initialise:
+  Destroy:
     runs-on: ubuntu-latest 
     steps:
 
@@ -45,5 +45,5 @@ jobs:
       run: terraform validate
 
       #Destory command to destroy all the cluster created
-    - name: destroy
+    - name: Destroy
       run: terraform destroy --auto-approve
