@@ -116,21 +116,21 @@ resource "aws_iam_role_policy_attachment" "s3" {
 
 
 
-//iam open ID connect
-resource "aws_iam_openid_connect_provider" "default_OIDC" {
-  url = "https://oidc.eks.us-east-1.amazonaws.com/id/${aws_eks_cluster.my-eks.id}"
+# //iam open ID connect
+# resource "aws_iam_openid_connect_provider" "default_OIDC" {
+#   url = "https://oidc.eks.us-east-1.amazonaws.com/id/${aws_eks_cluster.my-eks.id}"
 
-  client_id_list = [
-     "sts.amazonaws.com"
-  ]
+#   client_id_list = [
+#      "sts.amazonaws.com"
+#   ]
 
-  thumbprint_list = ["aaa68bb211d468db8a8a19561ccba2e4043dcc80"]
-}
+#   thumbprint_list = ["aaa68bb211d468db8a8a19561ccba2e4043dcc80"]
+# }
 
-output"oidc" {
-  value = aws_iam_openid_connect_provider.default_OIDC.url
+# output"oidc" {
+#   value = aws_iam_openid_connect_provider.default_OIDC.url
   
-}
+# }
 //auth
 resource "kubernetes_config_map" "aws_auth" {
   metadata {
