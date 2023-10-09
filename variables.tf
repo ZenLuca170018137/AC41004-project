@@ -38,7 +38,7 @@ variable "subnets" {
 
 variable "namespaces" {
   type    = list(string)
-  default = ["my_namespace"]
+  default = ["my-namespace"]
 }
 
 variable "ingress_https" {
@@ -89,7 +89,7 @@ variable "capacity" {
     capacity_type  = string
   })
   default = ({    
-    desired_size   = 1
+    desired_size   = 2
     min_size       = 1
     max_size       = 4
     instance_types = ["t2.small"]

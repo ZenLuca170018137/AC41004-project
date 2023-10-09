@@ -15,41 +15,37 @@ resource "aws_alb" "load_balancer" {
   tags                       = { Name = "my-alb" }  # Tags for the ALB
 }
 
-# ALB Target Group Configuration
-resource "aws_alb_target_group" "target_group" {
-  name     = "my-target-group"  # Name of the target group
-  port     = 80  # Port on which targets receive traffic
-  protocol = "HTTP"  # Protocol used to route traffic to targets
-  vpc_id   = aws_vpc.vpc.id  # VPC ID where the target group is located
-
-  # Health check settings to monitor the health of the targets
-  health_check {
-    enabled             = true  # Enables health check
-    interval            = 30  # Interval between health checks
-    path                = "/"  # URL path to perform health checks
-    port                = "traffic-port"  # Port to perform health check (traffic-port indicates the port on which each target receives traffic)
-    timeout             = 5  # Timeout for each health check
-    healthy_threshold   = 3  # Number of consecutive successful health checks required to consider a target healthy
-    unhealthy_threshold = 3  # Number of consecutive failed health checks required to consider a target unhealthy
-  }
-
-  tags = {
-    Name = "my-target-group"  # Tags for the target group
+ //namespace for kurbanetes
+resource "kubernetes_namespace" "devops-namespace" {
+  metadata {
+    name = "${var.namespaces[0]}"
   }
 }
-
-# ALB Listener Configuration
-resource "aws_alb_listener" "listener" {
-  load_balancer_arn = aws_alb.load_balancer.arn  # ARN of the ALB to which the listener is attached
-  port              = 80  # Port on which the listener receives traffic
-  protocol          = "HTTP"  # Protocol for routing traffic
-
-  # Default action to take if no route matches
-  default_action {
-    target_group_arn = aws_alb_target_group.target_group.arn  # ARN of the target group to forward traffic to
-    type             = "forward"  # Action type (forward traffic to the specified target group)
+//classic load balancer configuration to handle traffic
+resource "kubernetes_service" "classic-load-balancer" {
+  metadata {
+    name      = "classic-load-balancer"
+    namespace ="${var.namespaces[0]}"
+    labels = {
+      app = "apache_app-load-balancer"
+    }
+    annotations = {
+      "service.beta.kubernetes.io/aws-load-balancer-type" = "elb"
+    }
   }
-}
 
+  spec {
+    selector = {
+      app = "apache_app"
+    }
 
+    port {
+      port        = 80//exposed on port 80
+      target_port = 80
+    }
+
+    type = "LoadBalancer"
+  }
+  
+} 
 

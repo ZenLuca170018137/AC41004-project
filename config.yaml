@@ -24,7 +24,7 @@ private_subnets:
 
 # Set namespaces
 namespaces:
-    - the_new_namespace
+    - my-namespace
 
 # Configure ingress
 ingress_HTTPS:
